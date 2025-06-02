@@ -103,6 +103,7 @@ public class customers_list extends javax.swing.JFrame {
         setTitle("Customers List and Delete");
 
         table1.setBackground(new java.awt.Color(230, 240, 255));
+        table1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         table1.setForeground(new java.awt.Color(0, 0, 0));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
