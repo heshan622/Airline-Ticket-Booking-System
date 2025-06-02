@@ -4,6 +4,36 @@
  */
 package inf;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import static javax.swing.JOptionPane.showMessageDialog;
+
+
 /**
  *
  * @author Heshan
@@ -15,7 +45,49 @@ public class customersmainframe extends javax.swing.JFrame {
      */
     public customersmainframe() {
         initComponents();
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(r1);
+        genderGroup.add(r2);
+        autoID();
+        
     }
+    
+    Connection con;
+    PreparedStatement pst;
+    
+    String path = null;
+    byte[] userimage = null;
+    
+    
+    public void autoID() {
+        
+    String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+    String SUser = "root";
+    String SPass = "";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery("SELECT MAX(id) FROM addcustomer");
+
+        if (rs.next()) { 
+            String maxId = rs.getString("MAX(id)");
+
+            if (maxId == null) {
+                txtid.setText("CS001");
+            } else {
+                long id = Long.parseLong(maxId.substring(2));
+                id++;
+                txtid.setText("CS" + String.format("%03d", id));
+            }
+        }
+
+    } catch (ClassNotFoundException | SQLException ex) {
+        Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,44 +100,462 @@ public class customersmainframe extends javax.swing.JFrame {
 
         user = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtfirstname = new javax.swing.JTextField();
+        txtlastname = new javax.swing.JTextField();
+        txtnic = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtaddress = new javax.swing.JTextArea();
+        txtpassport = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtid = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        r1 = new javax.swing.JRadioButton();
+        r2 = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtcontact = new javax.swing.JTextField();
+        txtdob = new com.toedter.calendar.JDateChooser();
+        txtphoto = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Customers Mainframe");
+        setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        user.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         user.setForeground(new java.awt.Color(0, 51, 102));
-        user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user.setText("John");
+        user.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        user.setText("Admin..!");
+        getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 424, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("WelCome");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 74, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(340, 340, 340)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(358, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(user)
-                .addGap(0, 591, Short.MAX_VALUE))
+        jPanel1.setBackground(new java.awt.Color(230, 240, 255));
+        jPanel1.setForeground(new java.awt.Color(245, 249, 254));
+        jPanel1.setPreferredSize(new java.awt.Dimension(480, 480));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("FirstName");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("LastName");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("NIC no.");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Passsport ID");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Address");
+
+        txtfirstname.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        txtlastname.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        txtnic.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtnic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnicActionPerformed(evt);
+            }
+        });
+
+        txtaddress.setColumns(20);
+        txtaddress.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtaddress.setRows(5);
+        jScrollPane1.setViewportView(txtaddress);
+
+        txtpassport.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtpassport, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtfirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtlastname, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnic, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1222, 642));
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtfirstname, txtlastname, txtnic, txtpassport});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtlastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtfirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtnic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtpassport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel6)))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtfirstname, txtlastname, txtnic, txtpassport});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5, jLabel6});
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 84, -1, 373));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setText("Customer ID");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 44, -1, -1));
+
+        txtid.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtid.setForeground(new java.awt.Color(255, 51, 51));
+        txtid.setText("jLabel11");
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 44, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(230, 240, 255));
+        jPanel2.setForeground(new java.awt.Color(245, 249, 254));
+        jPanel2.setPreferredSize(new java.awt.Dimension(480, 220));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Date of Birth");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Gender");
+
+        r1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        r1.setForeground(new java.awt.Color(0, 0, 0));
+        r1.setText("Male");
+        r1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r1ActionPerformed(evt);
+            }
+        });
+
+        r2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        r2.setForeground(new java.awt.Color(0, 0, 0));
+        r2.setText("Female");
+        r2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r2ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Contact");
+
+        txtcontact.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtphoto.setToolTipText("Upload your photo (167 × 167 pixels recommended)");
+        txtphoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jButton3.setText("Browse");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtcontact, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdob, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtcontact, txtdob});
+
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(txtdob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(r1)
+                    .addComponent(r2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcontact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtphoto, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtcontact, txtdob});
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 84, -1, 373));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 153));
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 77, -1));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 102, 102));
+        jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 470, -1, -1));
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 0, 0));
+        jButton4.setText("Exit");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 470, 80, -1));
+
+        jLabel13.setForeground(new java.awt.Color(245, 249, 254));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/customers mainframe.jpg"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+
+        setSize(new java.awt.Dimension(1020, 555));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtnicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnicActionPerformed
+
+    private void r1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r1ActionPerformed
+
+    private void r2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       try {
+        JFileChooser piccChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg", "jpeg");
+        piccChooser.setFileFilter(filter);
+
+        int result = piccChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File pic = piccChooser.getSelectedFile();
+            path = pic.getAbsolutePath();
+
+            BufferedImage img = ImageIO.read(pic);
+
+            Image scaledImg = img.getScaledInstance(167, 167, Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(scaledImg);
+
+            txtphoto.setIcon(imageIcon);
+            
+            File image = new File(path);
+            FileInputStream fis = FileInputStream(image);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buff = new byte[1024];
+            for(int readNum; (readNum = fis.read(buff)) != -1;){
+                baos.write(buff, 0, readNum);
+            }
+            userimage = baos.toByteArray();
+            
+            
+            
+            
+        }
+    } catch (IOException ex) {
+        Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        String id = txtid.getText();
+        String firstname = txtfirstname.getText();
+        String lastname = txtlastname.getText();
+        String nic = txtnic.getText();
+        String passport = txtpassport.getText();
+        String address = txtaddress.getText();
+
+        
+        String Gender;
+        if (r1.isSelected()) {
+            Gender = "Male";
+        } else if (r2.isSelected()) {
+            Gender = "Female";
+        } else {
+            Gender = "";
+        }
+
+        String contact = txtcontact.getText();
+
+
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (firstname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "First name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (lastname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Last name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (nic.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NIC is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (passport.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Passport is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (address.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Address is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtdob.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Date of Birth is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
+        String date = da.format(txtdob.getDate());
+        
+        if (Gender.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Gender is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (contact.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Contact number is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (userimage == null || userimage.length == 0) {
+            JOptionPane.showMessageDialog(null, "Photo is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+ 
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            pst = con.prepareStatement("INSERT INTO addcustomer (id,firstname,lastname,nic,passport,address,"
+                    + "dob,gender,contact,photo) VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+            pst.setString(1, id);
+            pst.setString(2, firstname);
+            pst.setString(3, lastname);
+            pst.setString(4, nic);
+            pst.setString(5, passport);
+            pst.setString(6, address);
+            pst.setString(7, date);
+            pst.setString(8, Gender);
+            pst.setString(9, contact);
+            pst.setBytes(10, userimage);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registration Created....!");
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        customerslogin m2 = new customerslogin();
+        m2.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,7 +597,48 @@ public class customersmainframe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton r1;
+    private javax.swing.JRadioButton r2;
+    private javax.swing.JTextArea txtaddress;
+    private javax.swing.JTextField txtcontact;
+    private com.toedter.calendar.JDateChooser txtdob;
+    private javax.swing.JTextField txtfirstname;
+    private javax.swing.JLabel txtid;
+    private javax.swing.JTextField txtlastname;
+    private javax.swing.JTextField txtnic;
+    private javax.swing.JTextField txtpassport;
+    private javax.swing.JLabel txtphoto;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
+
+    private Object ImageIcon(BufferedImage img) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private FileInputStream openImageFile(File image) throws FileNotFoundException {
+    return new FileInputStream(image);
+}
+
+    private FileInputStream FileInputStream(File image) throws FileNotFoundException{
+        return new FileInputStream(image);
+    }
+
 }
