@@ -168,7 +168,12 @@ public class addflight extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 51, 51));
-        jButton1.setText("Cancel");
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(619, 375, 89, 36));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -184,6 +189,11 @@ public class addflight extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Exit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 375, 89, 36));
 
         txtdate.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -281,6 +291,14 @@ public class addflight extends javax.swing.JFrame {
    
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,4 +357,18 @@ public class addflight extends javax.swing.JFrame {
     private javax.swing.JTextField txtflightname;
     private javax.swing.JTextField txtsource;
     // End of variables declaration//GEN-END:variables
+
+    private void clear() {
+        
+        txtflightname.setText("");
+        txtsource.setText("");
+        txtdepart.setText("");
+        txtdate.setDate(null);
+        txtdtime.setText("");
+        txtarrtime.setText("");
+        txtflightcharge.setText("");
+         
+        
+    }
+    
 }
