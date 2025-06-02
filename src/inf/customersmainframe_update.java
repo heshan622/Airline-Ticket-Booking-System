@@ -455,7 +455,7 @@ public class customersmainframe_update extends javax.swing.JFrame {
             gender = "";
         }
 
-        // Input validation
+        
         if (firstname.isEmpty() || lastname.isEmpty() || nic.isEmpty() || passport.isEmpty()
                 || address.isEmpty() || txtdob.getDate() == null || gender.isEmpty()
                 || contact.isEmpty()) {
@@ -475,7 +475,7 @@ public class customersmainframe_update extends javax.swing.JFrame {
             return;
         }
 
-        // Format the date
+        
         DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
         String dob = da.format(txtdob.getDate());
 
@@ -487,7 +487,7 @@ public class customersmainframe_update extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 
-            // If userimage is null or empty, fetch the current photo from DB
+            
             if (userimage == null || userimage.length == 0) {
                 String fetchSql = "SELECT photo FROM addcustomer WHERE id = ?";
                 PreparedStatement fetchPst = con.prepareStatement(fetchSql);
@@ -501,14 +501,14 @@ public class customersmainframe_update extends javax.swing.JFrame {
                 }
             }
 
-            // Final validation
+            
             if (userimage == null || userimage.length == 0) {
                 JOptionPane.showMessageDialog(null, "Photo is required!", "Error", JOptionPane.ERROR_MESSAGE);
                 con.close();
                 return;
             }
 
-            // Update query
+            
             String sql = "UPDATE addcustomer SET firstname = ?, lastname = ?, nic = ?, passport = ?, address = ?, "
                        + "dob = ?, gender = ?, contact = ?, photo = ? WHERE id = ?";
 
@@ -540,98 +540,7 @@ public class customersmainframe_update extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-      /*  String id = txtcustid.getText();
-        
-        String firstname = txtfirstname.getText();
-        String lastname = txtlastname.getText();
-        String nic = txtnic.getText();
-        String passport = txtpassport.getText();
-        String address = txtaddress.getText();
-
-        
-        String Gender;
-        if (r1.isSelected()) {
-            Gender = "Male";
-        } else if (r2.isSelected()) {
-            Gender = "Female";
-        } else {
-            Gender = "";
-        }
-
-        String contact = txtcontact.getText();
-
-
-        
-        if (firstname.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "First name is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (lastname.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Last name is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (nic.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "NIC is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (passport.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Passport is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (address.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Address is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (txtdob.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Date of Birth is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
-        String date = da.format(txtdob.getDate());
-        
-        if (Gender.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Gender is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (contact.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Contact number is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (userimage == null || userimage.length == 0) {
-            JOptionPane.showMessageDialog(null, "Photo is required!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
- 
-        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
-        String SUser = "root";
-        String SPass = "";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
-            pst = con.prepareStatement("UPDATE addcustomer SET firstname = ?,lastname = ?,nic = ?,passport = ?,address = ?,"
-                    + "dob = ?,gender = ?,contact = ?,photo = ? WHERE id = ?");
-            
-            
-            pst.setString(1, firstname);
-            pst.setString(2, lastname);
-            pst.setString(3, nic);
-            pst.setString(4, passport);
-            pst.setString(5, address);
-            pst.setString(6, date);
-            pst.setString(7, Gender);
-            pst.setString(8, contact);
-            pst.setBytes(9, userimage);
-            pst.setString(10, id);
-
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Customer successfully Updated.....!");
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(customersmainframe_update.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
