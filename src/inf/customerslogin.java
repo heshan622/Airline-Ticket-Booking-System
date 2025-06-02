@@ -101,7 +101,7 @@ public class customerslogin extends javax.swing.JFrame {
     private void cusLbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusLbtnActionPerformed
         String Username, Password, query, userSnamebox = null, passDb = null;
         String SUrl, SUser, SPass;
-        SUrl = "jdbc:MySQL://localhost:3306/customers_sign_up";
+        SUrl = "jdbc:MySQL://localhost:3306/airline_system";
         SUser = "root";
         SPass = "";
         int notFound = 0;
