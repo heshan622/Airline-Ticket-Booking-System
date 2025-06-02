@@ -104,7 +104,7 @@ public class customerssignup extends javax.swing.JFrame {
 
         String Username, Password, query;
         String SUrl, SUser, SPass;
-        SUrl = "jdbc:MySQL://localhost:3306/customers_sign_up";
+        SUrl = "jdbc:MySQL://localhost:3306/airline_system";
         SUser = "root";
         SPass = "";
         try {
