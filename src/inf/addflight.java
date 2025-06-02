@@ -4,6 +4,18 @@
  */
 package inf;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Heshan
@@ -15,6 +27,41 @@ public class addflight extends javax.swing.JFrame {
      */
     public addflight() {
         initComponents();
+        autoID();
+    }
+    
+    Connection con;
+    PreparedStatement pst;
+    
+    
+    public void autoID() {
+        
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT MAX(id) FROM flight");
+
+            if (rs.next()) { 
+                String maxId = rs.getString("MAX(id)");
+
+                if (maxId == null) {
+                    txtflightid.setText("FO001");
+                } else {
+                    long id = Long.parseLong(maxId.substring(2));
+                    id++;
+                    txtflightid.setText("FO" + String.format("%03d", id));
+                }
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -26,21 +73,213 @@ public class addflight extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtflightid = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtflightname = new javax.swing.JTextField();
+        txtsource = new javax.swing.JTextField();
+        txtdepart = new javax.swing.JTextField();
+        txtflightcharge = new javax.swing.JTextField();
+        txtdtime = new javax.swing.JTextField();
+        txtarrtime = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        txtdate = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add Flight");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(230, 240, 255));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Flight ID");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 114, -1, -1));
+
+        txtflightid.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtflightid.setForeground(new java.awt.Color(204, 0, 51));
+        txtflightid.setText("jLabel2");
+        jPanel1.add(txtflightid, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 114, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Flight Name");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Source");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 228, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Departure");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 286, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Date");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 120, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Dep Time");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 170, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Arr Time");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 231, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Flight Charge");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 286, -1, -1));
+
+        txtflightname.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtflightname, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 167, 221, -1));
+
+        txtsource.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtsource, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 225, 221, -1));
+
+        txtdepart.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtdepart, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 283, 221, -1));
+
+        txtflightcharge.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtflightcharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 283, 221, -1));
+
+        txtdtime.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtdtime, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 167, 221, -1));
+
+        txtarrtime.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtarrtime, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 228, 221, -1));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 51, 51));
+        jButton1.setText("Cancel");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(619, 375, 89, 36));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 153));
+        jButton2.setText("Add");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 375, 89, 36));
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jButton3.setText("Exit");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 375, 89, 36));
+
+        txtdate.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel1.add(txtdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 114, 221, 25));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 38)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("SkyBridge International");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 530, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 430));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        String id = txtflightid.getText();
+        String flightname = txtflightname.getText();
+        String source = txtsource.getText();
+        String depart = txtdepart.getText();
+        
+        String departtime = txtdtime.getText();
+        String arrtime = txtarrtime.getText();
+        String flightcharge = txtflightcharge.getText();
+        
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (flightname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Flight name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (source.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Source is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (depart.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Departure is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtdate.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Date is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
+        String date = da.format(txtdate.getDate());
+        
+        if (departtime.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Departtime is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (arrtime.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Arrtime is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (flightcharge.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Flightcharge is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+ 
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
+
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            pst = con.prepareStatement("INSERT INTO flight (id,flightname,source,depart,date,deptime,"
+                    + "arrtime,flightcharge) VALUES (?,?,?,?,?,?,?,?)");
+            
+            pst.setString(1, id);
+            pst.setString(2, flightname);
+            pst.setString(3, source);
+            pst.setString(4, depart);
+            pst.setString(5, date);
+            pst.setString(6, departtime);
+            pst.setString(7, arrtime);
+            pst.setString(8, flightcharge);
+            
+            
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Flight Created....!");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +317,26 @@ public class addflight extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtarrtime;
+    private com.toedter.calendar.JDateChooser txtdate;
+    private javax.swing.JTextField txtdepart;
+    private javax.swing.JTextField txtdtime;
+    private javax.swing.JTextField txtflightcharge;
+    private javax.swing.JLabel txtflightid;
+    private javax.swing.JTextField txtflightname;
+    private javax.swing.JTextField txtsource;
     // End of variables declaration//GEN-END:variables
 }

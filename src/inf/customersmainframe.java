@@ -294,6 +294,8 @@ public class customersmainframe extends javax.swing.JFrame {
 
         txtcontact.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtdob.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
         txtphoto.setToolTipText("Upload your photo (167 × 167 pixels recommended)");
         txtphoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
