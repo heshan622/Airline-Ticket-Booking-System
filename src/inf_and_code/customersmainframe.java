@@ -541,10 +541,16 @@ public class customersmainframe extends javax.swing.JFrame {
 
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registration Created....!");
+            clear();
+            autoID();
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        customer_ticket1 k1 = new customer_ticket1();
+        k1.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -641,6 +647,21 @@ public class customersmainframe extends javax.swing.JFrame {
 
     private FileInputStream FileInputStream(File image) throws FileNotFoundException{
         return new FileInputStream(image);
+    }
+
+    private void clear() {
+        
+        txtfirstname.setText("");
+        txtlastname.setText("");
+        txtnic.setText("");
+        txtpassport.setText("");
+        txtaddress.setText("");
+        txtdob.setDate(null);
+        r1.setSelected(false);
+        r2.setSelected(false);        
+        txtcontact.setText("");
+        txtphoto.setIcon(null);
+        
     }
 
 }
