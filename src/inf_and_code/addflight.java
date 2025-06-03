@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package inf;
+package inf_and_code;
 
-import com.mysql.cj.jdbc.Blob;
-import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,33 +11,58 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Heshan
  */
-public class updateflight1 extends javax.swing.JFrame {
+public class addflight extends javax.swing.JFrame {
 
     /**
      * Creates new form addflight
      */
-    public updateflight1() {
+    public addflight() {
         initComponents();
-        
+        autoID();
     }
     
     Connection con;
     PreparedStatement pst;
     
     
-    
+    public void autoID() {
+        
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT MAX(id) FROM flight");
+
+            if (rs.next()) { 
+                String maxId = rs.getString("MAX(id)");
+
+                if (maxId == null) {
+                    txtflightid.setText("FO001");
+                } else {
+                    long id = Long.parseLong(maxId.substring(2));
+                    id++;
+                    txtflightid.setText("FO" + String.format("%03d", id));
+                }
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +75,7 @@ public class updateflight1 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        txtflightid = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -70,11 +94,9 @@ public class updateflight1 extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtdate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
-        txtfid = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update Flight");
+        setTitle("Add Flight");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(230, 240, 255));
@@ -85,6 +107,11 @@ public class updateflight1 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Flight ID");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 114, -1, -1));
+
+        txtflightid.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtflightid.setForeground(new java.awt.Color(204, 0, 51));
+        txtflightid.setText("jLabel2");
+        jPanel1.add(txtflightid, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 114, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -151,7 +178,7 @@ public class updateflight1 extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 153));
-        jButton2.setText("Update");
+        jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -178,18 +205,6 @@ public class updateflight1 extends javax.swing.JFrame {
         jLabel10.setText("SkyBridge International");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 530, 60));
 
-        txtfid.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel1.add(txtfid, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 112, 100, 30));
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jButton4.setText("Find");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, 30));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 430));
 
         pack();
@@ -198,76 +213,81 @@ public class updateflight1 extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        String id = txtfid.getText().trim();
-        String flightname = txtflightname.getText().trim();
-        String source = txtsource.getText().trim();
-        String depart = txtdepart.getText().trim();
+        String id = txtflightid.getText();
+        String flightname = txtflightname.getText();
+        String source = txtsource.getText();
+        String depart = txtdepart.getText();
         
-        String departtime = txtdtime.getText().trim();
-        String arrtime = txtarrtime.getText().trim();
-        String flightcharge = txtflightcharge.getText().trim();
-
-
-        if (flightname.isEmpty() || source.isEmpty() || depart.isEmpty() || txtdate.getDate() == null || 
-            departtime.isEmpty() || arrtime.isEmpty() || flightcharge.isEmpty())
-        {          
-            StringBuilder errorMessage = new StringBuilder("Please fill in the following fields:\n");
-
-            if (flightname.isEmpty()) errorMessage.append("- Flight Name\n");
-            if (source.isEmpty()) errorMessage.append("- Source\n");
-            if (depart.isEmpty()) errorMessage.append("- Departure\n");
-            if (txtdate.getDate() == null) errorMessage.append("- Date\n");
-            if (departtime.isEmpty()) errorMessage.append("- Departure Time\n");
-            if (arrtime.isEmpty()) errorMessage.append("- Arrival Time\n");            
-            if (flightcharge.isEmpty()) errorMessage.append("- Flight Charge\n");
-
-            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        String departtime = txtdtime.getText();
+        String arrtime = txtarrtime.getText();
+        String flightcharge = txtflightcharge.getText();
+        
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-
-        
+        if (flightname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Flight name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (source.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Source is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (depart.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Departure is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtdate.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Date is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
         String date = da.format(txtdate.getDate());
-
-        String dbUrl = "jdbc:mysql://localhost:3306/airline_system";
-        String dbUser = "root";
-        String dbPass = "";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPass);
-
-
-            String sql = "UPDATE flight SET flightname = ?, source = ?, depart = ?, date = ?, deptime = ?, "
-                       + "arrtime = ?, flightcharge = ? WHERE id = ?";
-
-            PreparedStatement pst = con.prepareStatement(sql);
-
-            pst.setString(1, flightname);
-            pst.setString(2, source);
-            pst.setString(3, depart);
-            pst.setString(4, date);
-            pst.setString(5, departtime);
-            pst.setString(6, arrtime);
-            pst.setString(7, flightcharge);
-            pst.setString(8, id);
-
-            int rowsAffected = pst.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Flight successfully updated!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Update failed. No matching ID found.");
-            }
-
-            con.close();
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        
+        if (departtime.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Departtime is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (arrtime.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Arrtime is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (flightcharge.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Flightcharge is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
+ 
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
+
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            pst = con.prepareStatement("INSERT INTO flight (id,flightname,source,depart,date,deptime,"
+                    + "arrtime,flightcharge) VALUES (?,?,?,?,?,?,?,?)");
+            
+            pst.setString(1, id);
+            pst.setString(2, flightname);
+            pst.setString(3, source);
+            pst.setString(4, depart);
+            pst.setString(5, date);
+            pst.setString(6, departtime);
+            pst.setString(7, arrtime);
+            pst.setString(8, flightcharge);
+            
+            
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Flight Created....!");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
+        }
    
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -278,52 +298,6 @@ public class updateflight1 extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            
-            String id = txtfid.getText();
-
-            String SUrl = "jdbc:mysql://localhost:3306/airline_system";
-            String SUser = "root";
-            String SPass = "";
-
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
-
-                String sql = "SELECT * FROM flight WHERE id = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, id);
-                ResultSet rs = pst.executeQuery();
-
-                if (!rs.next()) {
-                    JOptionPane.showMessageDialog(this, "Record not Found", "Error", JOptionPane.ERROR_MESSAGE); 
-                } else {
-                    String flightname = rs.getString("flightname");
-                    String source = rs.getString("source");
-                    String depart = rs.getString("depart");
-                    String date = rs.getString("date");
-                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-                    String departtime = rs.getString("deptime");
-                    String arrtime = rs.getString("arrtime");
-                    String flightcharge = rs.getString("flightcharge");
-
-                    
-                    txtflightname.setText(flightname.trim());
-                    txtsource.setText(source.trim());
-                    txtdepart.setText(depart.trim());
-                    txtdate.setDate(date1);
-                    txtdtime.setText(departtime.trim());
-                    txtarrtime.setText(arrtime.trim());
-                    txtflightcharge.setText(flightcharge.trim());
-                    
-                }
-
-            } catch (ClassNotFoundException | SQLException | ParseException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,21 +316,20 @@ public class updateflight1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(updateflight1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addflight.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(updateflight1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addflight.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(updateflight1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addflight.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(updateflight1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addflight.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new updateflight1().setVisible(true);
+                new addflight().setVisible(true);
             }
         });
     }
@@ -365,7 +338,6 @@ public class updateflight1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -380,8 +352,8 @@ public class updateflight1 extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtdate;
     private javax.swing.JTextField txtdepart;
     private javax.swing.JTextField txtdtime;
-    private javax.swing.JTextField txtfid;
     private javax.swing.JTextField txtflightcharge;
+    private javax.swing.JLabel txtflightid;
     private javax.swing.JTextField txtflightname;
     private javax.swing.JTextField txtsource;
     // End of variables declaration//GEN-END:variables

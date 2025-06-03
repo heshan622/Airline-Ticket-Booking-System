@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package inf;
+package inf_and_code;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -395,7 +395,7 @@ public class customersmainframe_for_admin extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 470, 80, -1));
 
         jLabel13.setForeground(new java.awt.Color(245, 249, 254));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/customers mainframe.jpg"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/customers mainframe.jpg"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
 
         setSize(new java.awt.Dimension(1020, 555));

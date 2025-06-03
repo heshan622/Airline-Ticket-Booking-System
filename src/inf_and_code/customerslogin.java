@@ -1,5 +1,7 @@
 
-package inf;
+package inf_and_code;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,16 +9,17 @@ import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  *
  * @author Heshan
  */
-public class customerssignup extends javax.swing.JFrame {
+public class customerslogin extends javax.swing.JFrame {
 
     /**
-     * Creates new form customerssignup
+     * Creates new form customers
      */
-    public customerssignup() {
+    public customerslogin() {
         initComponents();
     }
 
@@ -32,23 +35,21 @@ public class customerssignup extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        userSnamebox = new javax.swing.JTextField();
-        passSwordbox = new javax.swing.JPasswordField();
-        cusSbtn = new javax.swing.JButton();
+        unamebox = new javax.swing.JTextField();
+        cusLbtn = new javax.swing.JButton();
+        pwordbox = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        bctologin = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(770, 310));
-        setPreferredSize(new java.awt.Dimension(770, 310));
+        setTitle("Customers Login");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setDisplayedMnemonic('C');
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Customers Sign Up");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 180, 31));
+        jLabel1.setText("Customers Login");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 163, 31));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -60,86 +61,98 @@ public class customerssignup extends javax.swing.JFrame {
         jLabel3.setText("Password");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        userSnamebox.setBackground(new java.awt.Color(255, 255, 255));
-        userSnamebox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        userSnamebox.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(userSnamebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 160, -1));
+        unamebox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        unamebox.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(unamebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 160, -1));
 
-        passSwordbox.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(passSwordbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 160, -1));
-
-        cusSbtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cusSbtn.setForeground(new java.awt.Color(0, 0, 0));
-        cusSbtn.setText("Sign Up");
-        cusSbtn.addActionListener(new java.awt.event.ActionListener() {
+        cusLbtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cusLbtn.setForeground(new java.awt.Color(0, 0, 0));
+        cusLbtn.setText("Login");
+        cusLbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cusSbtnActionPerformed(evt);
+                cusLbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cusSbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, -1));
+        getContentPane().add(cusLbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
+        getContentPane().add(pwordbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 160, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("I have an account");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, 60));
+        jLabel5.setText("I don't have an account");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 30));
 
-        bctologin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        bctologin.setForeground(new java.awt.Color(255, 51, 51));
-        bctologin.setText("Login");
-        bctologin.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 51, 51));
+        jButton2.setText("Sign Up");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bctologinActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(bctologin, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/AllLoginBackground.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/AllLoginBackground.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 310));
 
-        setSize(new java.awt.Dimension(784, 318));
+        setSize(new java.awt.Dimension(785, 312));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cusSbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusSbtnActionPerformed
-
-        String Username, Password, query;
+    private void cusLbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusLbtnActionPerformed
+        String Username, Password, query, userSnamebox = null, passDb = null;
         String SUrl, SUser, SPass;
         SUrl = "jdbc:MySQL://localhost:3306/airline_system";
         SUser = "root";
         SPass = "";
+        int notFound = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
             Statement st = con.createStatement();
-            if("".equals(userSnamebox.getText())){
+            if("".equals(unamebox.getText())){
                 JOptionPane.showMessageDialog(new JFrame(), "User Name is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
-            }else if("".equals(passSwordbox.getText())){
+            }else if("".equals(pwordbox.getText())){
                 JOptionPane.showMessageDialog(new JFrame(), "Password is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }else {
-            Username = userSnamebox.getText(); 
-            Password = passSwordbox.getText();
-            System.out.println(Password);
+            Username    = unamebox.getText();
+            Password = pwordbox.getText();
             
-            query = "INSERT INTO customers(uname,upass)"+
-                    "VALUES('"+Username+"', '"+Password +"')";
+            query = "SELECT * FROM customers WHERE uname= '"+Username+"'";
+       
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                passDb = rs.getString("upass");
+                userSnamebox = rs.getString("uname");
+                notFound = 1;
+            }
+            if(notFound == 1 && Password.equals(passDb)){
+                customersmainframe m1 = new customersmainframe();
+                m1.setUser(userSnamebox);
+                m1.setVisible(true);
+                m1.pack();
+                m1.setLocationRelativeTo(null); 
+                this.dispose();
+            }else{
+               JOptionPane.showMessageDialog(new JFrame(), "Incorrect username or password", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            pwordbox.setText("");
             
-            st.execute(query);
-            userSnamebox.setText("");
-            passSwordbox.setText("");
-            showMessageDialog(null, "New account has been created successfully!");
             }
         }catch(Exception e){
            System.out.println("Error!" + e.getMessage()); 
         }
-    }//GEN-LAST:event_cusSbtnActionPerformed
+        
+    }//GEN-LAST:event_cusLbtnActionPerformed
 
-    private void bctologinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bctologinActionPerformed
-            customerslogin m1 = new customerslogin();
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            customerssignup m1 = new customerssignup();
             m1.setVisible(true);
             this.dispose();
-    }//GEN-LAST:event_bctologinActionPerformed
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,33 +171,34 @@ public class customerssignup extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customerssignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customerslogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customerssignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customerslogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customerssignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customerslogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(customerssignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customerslogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customerssignup().setVisible(true);
+                new customerslogin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bctologin;
-    private javax.swing.JButton cusSbtn;
+    private javax.swing.JButton cusLbtn;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField passSwordbox;
-    private javax.swing.JTextField userSnamebox;
+    private javax.swing.JPasswordField pwordbox;
+    private javax.swing.JTextField unamebox;
     // End of variables declaration//GEN-END:variables
 }

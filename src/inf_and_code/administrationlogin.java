@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package inf;
+package inf_and_code;
 
 import javax.swing.JOptionPane;
 
@@ -70,7 +70,7 @@ public class administrationlogin extends javax.swing.JFrame {
         getContentPane().add(adminLbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 211, -1, -1));
         getContentPane().add(pwordbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 154, 160, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/AllLoginBackground.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/AllLoginBackground.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 310));
 
         setSize(new java.awt.Dimension(784, 318));

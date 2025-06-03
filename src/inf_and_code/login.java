@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package inf;
+package inf_and_code;
 
 /**
  *
@@ -48,7 +48,7 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("SkyBridge International");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 530, 80));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/administration.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/administration.jpg"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 140, 140));
 
         admin.setBackground(new java.awt.Color(255, 255, 255));
@@ -60,7 +60,7 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 140, 140));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/Operator.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/Operator.jpg"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 140, 140));
 
         operator.setBackground(new java.awt.Color(255, 255, 255));
@@ -72,7 +72,7 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(operator, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 140, 140));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/customers.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/customers.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 140, 140));
 
         customers.setBackground(new java.awt.Color(255, 255, 255));
@@ -85,7 +85,7 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(customers, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 140, 140));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/login background.jpg"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/login background.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 410));
 

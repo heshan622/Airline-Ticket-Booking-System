@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package inf;
+package inf_and_code;
 
-import com.mysql.cj.jdbc.Blob;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -30,8 +29,6 @@ import java.io.FileInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -41,18 +38,17 @@ import static javax.swing.JOptionPane.showMessageDialog;
  *
  * @author Heshan
  */
-public class customersmainframe_update extends javax.swing.JFrame {
-    Connection conn = null;
-    
+public class customersmainframe extends javax.swing.JFrame {
 
     /**
      * Creates new form customersmainframe
      */
-    public customersmainframe_update() {
+    public customersmainframe() {
         initComponents();
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(r1);
         genderGroup.add(r2);
+        autoID();
         
     }
     
@@ -63,6 +59,34 @@ public class customersmainframe_update extends javax.swing.JFrame {
     byte[] userimage = null;
     
     
+    public void autoID() {
+        
+    String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+    String SUser = "root";
+    String SPass = "";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery("SELECT MAX(id) FROM addcustomer");
+
+        if (rs.next()) { 
+            String maxId = rs.getString("MAX(id)");
+
+            if (maxId == null) {
+                txtid.setText("CS001");
+            } else {
+                long id = Long.parseLong(maxId.substring(2));
+                id++;
+                txtid.setText("CS" + String.format("%03d", id));
+            }
+        }
+
+    } catch (ClassNotFoundException | SQLException ex) {
+        Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
     
     /**
@@ -89,6 +113,7 @@ public class customersmainframe_update extends javax.swing.JFrame {
         txtaddress = new javax.swing.JTextArea();
         txtpassport = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        txtid = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -102,12 +127,10 @@ public class customersmainframe_update extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        txtcustid = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Customers Update");
+        setTitle("Customers Mainframe");
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -230,6 +253,11 @@ public class customersmainframe_update extends javax.swing.JFrame {
         jLabel10.setText("Customer ID");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 44, -1, -1));
 
+        txtid.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtid.setForeground(new java.awt.Color(255, 51, 51));
+        txtid.setText("jLabel11");
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 44, -1, -1));
+
         jPanel2.setBackground(new java.awt.Color(230, 240, 255));
         jPanel2.setForeground(new java.awt.Color(245, 249, 254));
         jPanel2.setPreferredSize(new java.awt.Dimension(480, 220));
@@ -338,23 +366,23 @@ public class customersmainframe_update extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 153));
-        jButton1.setText("Update");
+        jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 470, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 77, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 102, 102));
-        jButton2.setText("Clear");
+        jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(802, 470, 80, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 470, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
@@ -366,21 +394,8 @@ public class customersmainframe_update extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 470, 80, -1));
 
-        txtcustid.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        getContentPane().add(txtcustid, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 42, 170, 30));
-
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
-        jButton6.setText("Find");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 43, 80, 30));
-
         jLabel13.setForeground(new java.awt.Color(245, 249, 254));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/customers mainframe.jpg"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf_and_code/customers mainframe.jpg"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
 
         setSize(new java.awt.Dimension(1020, 555));
@@ -431,189 +446,118 @@ public class customersmainframe_update extends javax.swing.JFrame {
             
         }
     } catch (IOException ex) {
-        Logger.getLogger(customersmainframe_update.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
     }
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        String id = txtcustid.getText().trim();
-        String firstname = txtfirstname.getText().trim();
-        String lastname = txtlastname.getText().trim();
-        String nic = txtnic.getText().trim();
-        String passport = txtpassport.getText().trim();
-        String address = txtaddress.getText().trim();
-        String contact = txtcontact.getText().trim();
-
-        String gender;
-        if (r1.isSelected()) {
-            gender = "Male";
-        } else if (r2.isSelected()) {
-            gender = "Female";
-        } else {
-            gender = "";
-        }
+        String id = txtid.getText();
+        String firstname = txtfirstname.getText();
+        String lastname = txtlastname.getText();
+        String nic = txtnic.getText();
+        String passport = txtpassport.getText();
+        String address = txtaddress.getText();
 
         
-        if (firstname.isEmpty() || lastname.isEmpty() || nic.isEmpty() || passport.isEmpty()
-                || address.isEmpty() || txtdob.getDate() == null || gender.isEmpty()
-                || contact.isEmpty()) {
+        String Gender;
+        if (r1.isSelected()) {
+            Gender = "Male";
+        } else if (r2.isSelected()) {
+            Gender = "Female";
+        } else {
+            Gender = "";
+        }
 
-            StringBuilder errorMessage = new StringBuilder("Please fill in the following fields:\n");
+        String contact = txtcontact.getText();
 
-            if (firstname.isEmpty()) errorMessage.append("- First name\n");
-            if (lastname.isEmpty()) errorMessage.append("- Last name\n");
-            if (nic.isEmpty()) errorMessage.append("- NIC\n");
-            if (passport.isEmpty()) errorMessage.append("- Passport\n");
-            if (address.isEmpty()) errorMessage.append("- Address\n");
-            if (txtdob.getDate() == null) errorMessage.append("- Date of Birth\n");
-            if (gender.isEmpty()) errorMessage.append("- Gender\n");
-            if (contact.isEmpty()) errorMessage.append("- Contact\n");
 
-            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (firstname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "First name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (lastname.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Last name is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (nic.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NIC is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (passport.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Passport is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (address.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Address is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtdob.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Date of Birth is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
-        String dob = da.format(txtdob.getDate());
-
-        String dbUrl = "jdbc:mysql://localhost:3306/airline_system";
-        String dbUser = "root";
-        String dbPass = "";
+        String date = da.format(txtdob.getDate());
+        
+        if (Gender.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Gender is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (contact.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Contact number is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (userimage == null || userimage.length == 0) {
+            JOptionPane.showMessageDialog(null, "Photo is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+ 
+        String SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        String SUser = "root";
+        String SPass = "";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            pst = con.prepareStatement("INSERT INTO addcustomer (id,firstname,lastname,nic,passport,address,"
+                    + "dob,gender,contact,photo) VALUES (?,?,?,?,?,?,?,?,?,?)");
 
-            
-            if (userimage == null || userimage.length == 0) {
-                String fetchSql = "SELECT photo FROM addcustomer WHERE id = ?";
-                PreparedStatement fetchPst = con.prepareStatement(fetchSql);
-                fetchPst.setString(1, id);
-                ResultSet rs = fetchPst.executeQuery();
-                if (rs.next()) {
-                    Blob blob = (Blob) rs.getBlob("photo");
-                    if (blob != null) {
-                        userimage = blob.getBytes(1, (int) blob.length());
-                    }
-                }
-            }
+            pst.setString(1, id);
+            pst.setString(2, firstname);
+            pst.setString(3, lastname);
+            pst.setString(4, nic);
+            pst.setString(5, passport);
+            pst.setString(6, address);
+            pst.setString(7, date);
+            pst.setString(8, Gender);
+            pst.setString(9, contact);
+            pst.setBytes(10, userimage);
 
-            
-            if (userimage == null || userimage.length == 0) {
-                JOptionPane.showMessageDialog(null, "Photo is required!", "Error", JOptionPane.ERROR_MESSAGE);
-                con.close();
-                return;
-            }
-
-            
-            String sql = "UPDATE addcustomer SET firstname = ?, lastname = ?, nic = ?, passport = ?, address = ?, "
-                       + "dob = ?, gender = ?, contact = ?, photo = ? WHERE id = ?";
-
-            PreparedStatement pst = con.prepareStatement(sql);
-
-            pst.setString(1, firstname);
-            pst.setString(2, lastname);
-            pst.setString(3, nic);
-            pst.setString(4, passport);
-            pst.setString(5, address);
-            pst.setString(6, dob);
-            pst.setString(7, gender);
-            pst.setString(8, contact);
-            pst.setBytes(9, userimage);
-            pst.setString(10, id);
-
-            int rowsAffected = pst.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Customer successfully updated!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Update failed. No matching ID found.");
-            }
-
-            con.close();
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registration Created....!");
 
         } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(customersmainframe.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        clear();
+        
+        customerslogin m2 = new customerslogin();
+        m2.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
-            String id = txtcustid.getText();
-
-            String SUrl = "jdbc:mysql://localhost:3306/airline_system";
-            String SUser = "root";
-            String SPass = "";
-
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
-
-                String sql = "SELECT * FROM addcustomer WHERE id = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, id);
-                ResultSet rs = pst.executeQuery();
-
-                if (!rs.next()) {
-                    JOptionPane.showMessageDialog(this, "Record not Found", "Error", JOptionPane.ERROR_MESSAGE); 
-                } else {
-                    String fname = rs.getString("firstname");
-                    String lname = rs.getString("lastname");
-                    String nic = rs.getString("nic");
-                    String passport = rs.getString("passport");
-                    String address = rs.getString("address");
-                    String dob = rs.getString("dob");
-                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
-                    String gender = rs.getString("gender");
-
-                    Blob blob = (Blob) rs.getBlob("photo");
-                    byte[] _imagebytes = blob.getBytes(1, (int) blob.length());
-                    ImageIcon image = new ImageIcon(_imagebytes);
-                    Image im = image.getImage();
-                    Image myImg = im.getScaledInstance(txtphoto.getWidth(), txtphoto.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(myImg);
-
-                    
-                    if (gender.equalsIgnoreCase("Female")) {
-                        r1.setSelected(false);
-                        r2.setSelected(true);
-                    } else {
-                        r1.setSelected(true);
-                        r2.setSelected(false);
-                    }
-
-                    
-                    txtfirstname.setText(fname.trim());
-                    txtlastname.setText(lname.trim());
-                    txtnic.setText(nic.trim());
-                    txtpassport.setText(passport.trim());
-                    txtaddress.setText(address.trim());
-                    txtcontact.setText(rs.getString("contact").trim());
-                    txtdob.setDate(date1);
-                    txtphoto.setIcon(newImage);
-                }
-
-            } catch (ClassNotFoundException | SQLException | ParseException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } 
-
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -632,27 +576,20 @@ public class customersmainframe_update extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customersmainframe_update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customersmainframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customersmainframe_update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customersmainframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customersmainframe_update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customersmainframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(customersmainframe_update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(customersmainframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customersmainframe_update().setVisible(true);
+                new customersmainframe().setVisible(true);
             }
         });
     }
@@ -666,7 +603,6 @@ public class customersmainframe_update extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -685,9 +621,9 @@ public class customersmainframe_update extends javax.swing.JFrame {
     private javax.swing.JRadioButton r2;
     private javax.swing.JTextArea txtaddress;
     private javax.swing.JTextField txtcontact;
-    private javax.swing.JTextField txtcustid;
     private com.toedter.calendar.JDateChooser txtdob;
     private javax.swing.JTextField txtfirstname;
+    private javax.swing.JLabel txtid;
     private javax.swing.JTextField txtlastname;
     private javax.swing.JTextField txtnic;
     private javax.swing.JTextField txtpassport;
@@ -705,21 +641,6 @@ public class customersmainframe_update extends javax.swing.JFrame {
 
     private FileInputStream FileInputStream(File image) throws FileNotFoundException{
         return new FileInputStream(image);
-    }
-
-    private void clear() {
-        
-        txtfirstname.setText("");
-        txtlastname.setText("");
-        txtnic.setText("");
-        txtpassport.setText("");
-        txtaddress.setText("");
-        txtdob.setDate(null);
-        txtcontact.setText("");
-        r1.setSelected(false);
-        r2.setSelected(false);
-        txtphoto.setIcon(null); 
-        
     }
 
 }
