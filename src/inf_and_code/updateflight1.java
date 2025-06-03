@@ -60,8 +60,6 @@ public class updateflight1 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtflightname = new javax.swing.JTextField();
-        txtsource = new javax.swing.JTextField();
-        txtdepart = new javax.swing.JTextField();
         txtflightcharge = new javax.swing.JTextField();
         txtdtime = new javax.swing.JTextField();
         txtarrtime = new javax.swing.JTextField();
@@ -72,6 +70,8 @@ public class updateflight1 extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtfid = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        txtsource = new javax.swing.JComboBox<>();
+        txtdepart = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Flight");
@@ -123,12 +123,6 @@ public class updateflight1 extends javax.swing.JFrame {
 
         txtflightname.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jPanel1.add(txtflightname, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 167, 221, -1));
-
-        txtsource.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel1.add(txtsource, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 225, 221, -1));
-
-        txtdepart.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel1.add(txtdepart, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 283, 221, -1));
 
         txtflightcharge.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jPanel1.add(txtflightcharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 283, 221, -1));
@@ -190,6 +184,14 @@ public class updateflight1 extends javax.swing.JFrame {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, 30));
 
+        txtsource.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtsource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Sri Lanka", "United States", "France", "Japan", "China", "Australia", "Italy", "United Arab Emirates" }));
+        jPanel1.add(txtsource, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 227, 221, 25));
+
+        txtdepart.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtdepart.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Sri Lanka", "United States", "France", "Japan", "China", "Australia", "Italy", "United Arab Emirates" }));
+        jPanel1.add(txtdepart, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 285, 221, 25));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 430));
 
         pack();
@@ -200,22 +202,22 @@ public class updateflight1 extends javax.swing.JFrame {
         
         String id = txtfid.getText().trim();
         String flightname = txtflightname.getText().trim();
-        String source = txtsource.getText().trim();
-        String depart = txtdepart.getText().trim();
+        String source = txtsource.getSelectedItem().toString().trim();
+        String depart = txtdepart.getSelectedItem().toString().trim();
         
         String departtime = txtdtime.getText().trim();
         String arrtime = txtarrtime.getText().trim();
         String flightcharge = txtflightcharge.getText().trim();
 
 
-        if (flightname.isEmpty() || source.isEmpty() || depart.isEmpty() || txtdate.getDate() == null || 
+        if (flightname.isEmpty() || source.equals("Select") || depart.equals("Select") || txtdate.getDate() == null || 
             departtime.isEmpty() || arrtime.isEmpty() || flightcharge.isEmpty())
         {          
             StringBuilder errorMessage = new StringBuilder("Please fill in the following fields:\n");
 
             if (flightname.isEmpty()) errorMessage.append("- Flight Name\n");
-            if (source.isEmpty()) errorMessage.append("- Source\n");
-            if (depart.isEmpty()) errorMessage.append("- Departure\n");
+            if (source.equals("Select")) errorMessage.append("- Source\n");
+            if (depart.equals("Select")) errorMessage.append("- Departure\n");
             if (txtdate.getDate() == null) errorMessage.append("- Date\n");
             if (departtime.isEmpty()) errorMessage.append("- Departure Time\n");
             if (arrtime.isEmpty()) errorMessage.append("- Arrival Time\n");            
@@ -310,8 +312,8 @@ public class updateflight1 extends javax.swing.JFrame {
 
                     
                     txtflightname.setText(flightname.trim());
-                    txtsource.setText(source.trim());
-                    txtdepart.setText(depart.trim());
+                    txtsource.setSelectedItem(source.trim());
+                    txtdepart.setSelectedItem(depart.trim());
                     txtdate.setDate(date1);
                     txtdtime.setText(departtime.trim());
                     txtarrtime.setText(arrtime.trim());
@@ -378,19 +380,20 @@ public class updateflight1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtarrtime;
     private com.toedter.calendar.JDateChooser txtdate;
-    private javax.swing.JTextField txtdepart;
+    private javax.swing.JComboBox<String> txtdepart;
     private javax.swing.JTextField txtdtime;
     private javax.swing.JTextField txtfid;
     private javax.swing.JTextField txtflightcharge;
     private javax.swing.JTextField txtflightname;
-    private javax.swing.JTextField txtsource;
+    private javax.swing.JComboBox<String> txtsource;
     // End of variables declaration//GEN-END:variables
 
     private void clear() {
         
+        txtfid.setText("");
         txtflightname.setText("");
-        txtsource.setText("");
-        txtdepart.setText("");
+        txtsource.setSelectedItem("Select");
+        txtdepart.setSelectedItem("Select");
         txtdate.setDate(null);
         txtdtime.setText("");
         txtarrtime.setText("");
