@@ -81,9 +81,19 @@ public class administrationmainframe extends javax.swing.JFrame {
         jMenu4.setText("Booking");
 
         jMenuItem5.setText("Ticket Booking");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
-        jMenuItem6.setText("Ticket Report");
+        jMenuItem6.setText("Ticket Report and Delete");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         jMenuBar2.add(jMenu4);
@@ -172,6 +182,16 @@ public class administrationmainframe extends javax.swing.JFrame {
         flight_list1 m8 = new flight_list1();
         m8.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ticket m9 = new ticket();
+        m9.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        ticket_report_and_delete m10 = new ticket_report_and_delete();
+        m10.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
