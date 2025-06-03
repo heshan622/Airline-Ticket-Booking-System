@@ -28,6 +28,7 @@ public class addflight extends javax.swing.JFrame {
     public addflight() {
         initComponents();
         autoID();
+        
     }
     
     Connection con;
@@ -84,8 +85,6 @@ public class addflight extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtflightname = new javax.swing.JTextField();
-        txtsource = new javax.swing.JTextField();
-        txtdepart = new javax.swing.JTextField();
         txtflightcharge = new javax.swing.JTextField();
         txtdtime = new javax.swing.JTextField();
         txtarrtime = new javax.swing.JTextField();
@@ -94,6 +93,8 @@ public class addflight extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtdate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
+        txtsource = new javax.swing.JComboBox<>();
+        txtdepart = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Flight");
@@ -151,12 +152,6 @@ public class addflight extends javax.swing.JFrame {
         txtflightname.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jPanel1.add(txtflightname, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 167, 221, -1));
 
-        txtsource.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel1.add(txtsource, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 225, 221, -1));
-
-        txtdepart.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel1.add(txtdepart, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 283, 221, -1));
-
         txtflightcharge.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jPanel1.add(txtflightcharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 283, 221, -1));
 
@@ -205,6 +200,14 @@ public class addflight extends javax.swing.JFrame {
         jLabel10.setText("SkyBridge International");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 530, 60));
 
+        txtsource.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtsource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Sri Lanka", "United States", "France", "Japan", "China", "Australia", "Italy", "United Arab Emirates" }));
+        jPanel1.add(txtsource, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 227, 221, -1));
+
+        txtdepart.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        txtdepart.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Sri Lanka", "United States", "France", "Japan", "China", "Australia", "Italy", "United Arab Emirates" }));
+        jPanel1.add(txtdepart, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 285, 221, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 430));
 
         pack();
@@ -215,8 +218,8 @@ public class addflight extends javax.swing.JFrame {
         
         String id = txtflightid.getText();
         String flightname = txtflightname.getText();
-        String source = txtsource.getText();
-        String depart = txtdepart.getText();
+        String source = txtsource.getSelectedItem().toString();
+        String depart = txtdepart.getSelectedItem().toString();
         
         String departtime = txtdtime.getText();
         String arrtime = txtarrtime.getText();
@@ -230,11 +233,11 @@ public class addflight extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Flight name is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (source.isEmpty()) {
+        if (source.equals("Select")) {
             JOptionPane.showMessageDialog(null, "Source is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (depart.isEmpty()) {
+        if (depart.equals("Select")) {
             JOptionPane.showMessageDialog(null, "Departure is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -282,7 +285,10 @@ public class addflight extends javax.swing.JFrame {
             
 
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Flight Created....!");
+            JOptionPane.showMessageDialog(null, "Flight Created Successfully!");
+            clear();
+            autoID();
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -350,19 +356,19 @@ public class addflight extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtarrtime;
     private com.toedter.calendar.JDateChooser txtdate;
-    private javax.swing.JTextField txtdepart;
+    private javax.swing.JComboBox<String> txtdepart;
     private javax.swing.JTextField txtdtime;
     private javax.swing.JTextField txtflightcharge;
     private javax.swing.JLabel txtflightid;
     private javax.swing.JTextField txtflightname;
-    private javax.swing.JTextField txtsource;
+    private javax.swing.JComboBox<String> txtsource;
     // End of variables declaration//GEN-END:variables
 
     private void clear() {
         
         txtflightname.setText("");
-        txtsource.setText("");
-        txtdepart.setText("");
+        txtsource.setSelectedItem("Select");
+        txtdepart.setSelectedItem("Select");
         txtdate.setDate(null);
         txtdtime.setText("");
         txtarrtime.setText("");
