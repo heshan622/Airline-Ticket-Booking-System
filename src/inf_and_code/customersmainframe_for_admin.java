@@ -45,6 +45,7 @@ public class customersmainframe_for_admin extends javax.swing.JFrame {
      */
     public customersmainframe_for_admin() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(r1);
         genderGroup.add(r2);
