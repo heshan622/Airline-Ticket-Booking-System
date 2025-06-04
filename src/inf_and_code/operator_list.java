@@ -28,6 +28,7 @@ public class operator_list extends javax.swing.JFrame {
      */
     public operator_list() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tableload();
     }
     
