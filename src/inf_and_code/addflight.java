@@ -27,6 +27,7 @@ public class addflight extends javax.swing.JFrame {
      */
     public addflight() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         autoID();
         
     }
