@@ -31,7 +31,7 @@ public class customers_booking_list extends javax.swing.JFrame {
      */
     public customers_booking_list() {
         initComponents();
-        //tableload();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     public void tableload(){
