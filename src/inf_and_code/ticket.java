@@ -40,6 +40,7 @@ public class ticket extends javax.swing.JFrame {
      */
     public ticket() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         autoID();
         SpinnerNumberModel seatModel = new SpinnerNumberModel(0, 0, 10, 1);
         txtseats.setModel(seatModel);
