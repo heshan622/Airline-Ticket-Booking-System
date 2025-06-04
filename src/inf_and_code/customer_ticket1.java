@@ -123,10 +123,12 @@ public class customer_ticket1 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         txtcost = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Booking Tickets");
+        setTitle("Customer Booking Tickets");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(230, 240, 255));
@@ -301,15 +303,12 @@ public class customer_ticket1 extends javax.swing.JFrame {
 
         flightname.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         flightname.setForeground(new java.awt.Color(0, 0, 0));
-        flightname.setText("jLabel9");
 
         flightno.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         flightno.setForeground(new java.awt.Color(0, 0, 0));
-        flightno.setText("jLabel11");
 
         txtdept.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         txtdept.setForeground(new java.awt.Color(0, 0, 0));
-        txtdept.setText("jLabel18");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -422,9 +421,29 @@ public class customer_ticket1 extends javax.swing.JFrame {
         jLabel10.setText("Total Cost :");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, -1, -1));
 
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 0, 0));
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, -1, -1));
+
         txtcost.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtcost.setForeground(new java.awt.Color(153, 0, 51));
         jPanel5.add(txtcost, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 588, 243, -1));
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 102, 255));
+        jButton7.setText("Booking Details");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 600, -1, -1));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 680));
 
@@ -743,6 +762,17 @@ public class customer_ticket1 extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        customersmainframe m1 = new customersmainframe();                
+        m1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        customers_booking_list k2 = new customers_booking_list();
+        k2.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -788,6 +818,8 @@ public class customer_ticket1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
