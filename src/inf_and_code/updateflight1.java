@@ -32,6 +32,7 @@ public class updateflight1 extends javax.swing.JFrame {
      */
     public updateflight1() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
     }
     
