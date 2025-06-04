@@ -18,6 +18,7 @@ public class add_operator extends javax.swing.JFrame {
      */
     public add_operator() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
