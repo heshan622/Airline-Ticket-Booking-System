@@ -28,6 +28,7 @@ public class customers_list extends javax.swing.JFrame {
      */
     public customers_list() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tableload();
     }
     
