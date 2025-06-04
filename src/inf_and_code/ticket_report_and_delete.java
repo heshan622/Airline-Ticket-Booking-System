@@ -28,6 +28,7 @@ public class ticket_report_and_delete extends javax.swing.JFrame {
      */
     public ticket_report_and_delete() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tableload();
     }
     
