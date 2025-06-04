@@ -41,7 +41,7 @@ public class ticket_report_and_delete extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(SUrl, SUser, SPass);
 
-            String sql = "SELECT id AS ID, flightid AS FLIGHTID, custid AS CUSTOMETID, class AS CLASS, "
+            String sql = "SELECT id AS TICKETID, flightid AS FLIGHTID, custid AS CUSTOMETID, class AS CLASS, "
                        + "price AS PRICE, seats AS SEATS, date AS DATE FROM ticket";
 
             pst = conn.prepareStatement(sql);
