@@ -4,11 +4,16 @@
  */
 package inf_and_code;
 
+
+
 /**
  *
  * @author Heshan
  */
 public class administrationmainframe extends javax.swing.JFrame {
+    
+    
+
 
     /**
      * Creates new form administrationmainframe
