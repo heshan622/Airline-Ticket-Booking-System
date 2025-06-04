@@ -16,6 +16,7 @@
             <word>administrationmainframe</word>
             <word>customersmainframe</word>
             <word>customerssignup</word>
+            <word>operatorlogin</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
