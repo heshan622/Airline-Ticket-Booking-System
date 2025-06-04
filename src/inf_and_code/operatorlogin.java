@@ -4,6 +4,11 @@
  */
 package inf_and_code;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -84,22 +89,51 @@ public class operatorlogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void opeLbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opeLbtnActionPerformed
-        String uname; //Heshan
-        String pword; //1234
         
-        uname = unamebox.getText();
-        pword = pwordbox.getText();
-        
-        if(uname.equals("Heshan") && pword.equals("1234")){
+        String Username, Password, query, userSnamebox = null, passDb = null;
+        String SUrl, SUser, SPass;
+        SUrl = "jdbc:MySQL://localhost:3306/airline_system";
+        SUser = "root";
+        SPass = "";
+        int notFound = 0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement st = con.createStatement();
+            if("".equals(unamebox.getText())){
+                JOptionPane.showMessageDialog(new JFrame(), "User Name is require", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }else if("".equals(pwordbox.getText())){
+                JOptionPane.showMessageDialog(new JFrame(), "Password is require", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }else {
+            Username    = unamebox.getText();
+            Password = pwordbox.getText();
             
-            operatormainframe m1 = new operatormainframe();
-            m1.setVisible(true);
-            this.dispose();
-        }
-        else{
+            query = "SELECT * FROM addoperator WHERE uname= '"+Username+"'";
+       
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                passDb = rs.getString("upass");
+                userSnamebox = rs.getString("uname");
+                notFound = 1;
+            }
+            if(notFound == 1 && Password.equals(passDb)){
+                operatormainframe k5 = new operatormainframe();
+                k5.setUser(userSnamebox);
+                k5.setVisible(true);
+                k5.pack();
+                k5.setLocationRelativeTo(null); 
+                this.dispose();
+            }else{
+               JOptionPane.showMessageDialog(new JFrame(), "Incorrect username or password", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            pwordbox.setText("");
             
-            JOptionPane.showMessageDialog(null,"username or password incorrect...!");
-            
+            }
+        }catch(Exception e){
+           System.out.println("Error!" + e.getMessage()); 
         }
     }//GEN-LAST:event_opeLbtnActionPerformed
 
