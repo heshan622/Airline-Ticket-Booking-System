@@ -28,6 +28,7 @@ public class flight_list1 extends javax.swing.JFrame {
      */
     public flight_list1() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tableload();
     }
     
